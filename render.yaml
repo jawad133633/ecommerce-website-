@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: good-market
+    runtime: node
+    plan: free
+    buildCommand: npm --prefix frontend ci && npm --prefix frontend run build && npm --prefix backend ci
+    startCommand: npm --prefix backend start
+    healthCheckPath: /health
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: AUTH_TOKEN_SECRET
+        generateValue: true
+      - key: ORDER_ADMIN_TOKEN
+        generateValue: true
